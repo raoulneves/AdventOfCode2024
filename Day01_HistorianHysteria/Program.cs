@@ -1,13 +1,19 @@
-﻿try
+﻿const string separator = "   ";
+
+try
 {
     using var reader = new StreamReader("input.txt");
 
     string rawPuzzleInput = reader.ReadToEnd();
     string[] lines = rawPuzzleInput.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
-    foreach (string line in lines)
+    List<KeyValuePair<int, int>> locationsList = lines.Select(line => line.Split(separator))
+                                                      .Select(pair => new KeyValuePair<int, int>(int.Parse(pair[0]), int.Parse(pair[1])))
+                                                      .ToList();
+
+    foreach (KeyValuePair<int, int> locationLine in locationsList)
     {
-        Console.WriteLine(line);
+        Console.WriteLine(locationLine);
     }
 }
 catch (IOException e)
