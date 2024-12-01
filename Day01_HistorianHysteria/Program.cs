@@ -1,3 +1,13 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿try
+{
+    using var reader = new StreamReader("input.txt");
 
-Console.WriteLine("Hello, World!");
+    string puzzleInput = reader.ReadToEnd();
+
+    Console.WriteLine(puzzleInput);
+}
+catch (IOException e)
+{
+    Console.WriteLine("The file could not be read:");
+    Console.WriteLine(e.Message);
+}
