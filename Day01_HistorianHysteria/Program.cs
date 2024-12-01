@@ -11,10 +11,35 @@ try
                                                       .Select(pair => new KeyValuePair<int, int>(int.Parse(pair[0]), int.Parse(pair[1])))
                                                       .ToList();
 
-    foreach (KeyValuePair<int, int> locationLine in locationsList)
+    int i = 0;
+    int totalDistance = 0;
+    bool firstPass = true;
+    var checkedIds = new List<int>();     
+    do
     {
-        Console.WriteLine(locationLine);
-    }
+        int smallestId;
+
+        if (firstPass)
+        {
+            smallestId = locationsList.Min(location => location.Key);    
+            firstPass = false;
+        }
+        else
+        {
+             smallestId =  locationsList.Where(location => !checkedIds.Contains(location.Key))
+                                        .Min(location => location.Key);
+        }
+        
+        int leftSideIndex = locationsList.FindIndex(location => location.Key == smallestId);
+        int rightSideIndex = locationsList.FindIndex(location => location.Value == smallestId);
+        int distance = Math.Abs(leftSideIndex - rightSideIndex);
+
+        checkedIds.Add(smallestId);
+        totalDistance += distance;
+        i++;
+    } while (i < lines.Length);
+    
+    Console.WriteLine(totalDistance);
 }
 catch (IOException e)
 {
