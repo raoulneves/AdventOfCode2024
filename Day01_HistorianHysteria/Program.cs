@@ -2,9 +2,13 @@
 {
     using var reader = new StreamReader("input.txt");
 
-    string puzzleInput = reader.ReadToEnd();
+    string rawPuzzleInput = reader.ReadToEnd();
+    string[] lines = rawPuzzleInput.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
-    Console.WriteLine(puzzleInput);
+    foreach (string line in lines)
+    {
+        Console.WriteLine(line);
+    }
 }
 catch (IOException e)
 {
